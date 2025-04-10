@@ -2,7 +2,7 @@
 name:                QFSim
 version:             0.1.0.0
 github:              "githubuser/QFSim" # Replace with your GitHub details
-license:             BSD3
+license:             MIT
 author:              "Your Name"
 maintainer:          "your.email@example.com"
 copyright:           "2024 Your Name"
