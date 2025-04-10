@@ -1,0 +1,44 @@
+# .github/workflows/haskell-ci.yml
+name: Haskell CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Haskell Stack
+      uses: haskell-actions/setup@v2
+      with:
+        enable-stack: true
+        stack-version: 'latest' # Or pin to a specific version
+
+    - name: Cache Stack dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.stack
+          .stack-work
+        key: ${{ runner.os }}-stack-${{ hashFiles('stack.yaml.lock') }}-${{ hashFiles('package.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-stack-
+
+    - name: Install dependencies
+      run: stack build --dependencies-only --test --bench --no-run-benchmarks
+
+    - name: Build project
+      run: stack build --test --bench --no-run-benchmarks
+
+    - name: Run tests
+      run: stack test
+
+    # Optional: Build documentation
+    # - name: Build Haddock documentation
+    #   run: stack haddock

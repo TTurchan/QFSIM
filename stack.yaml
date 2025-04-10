@@ -1,0 +1,12 @@
+# stack.yaml
+resolver: lts-22.7 # Or choose a recent LTS resolver
+
+packages:
+- .
+
+extra-deps: []
+# - hmatrix-0.20.2 # Example if specific version needed, otherwise stack handles it via package.yaml
+
+flags: {}
+
+extra-package-dbs: [] 
